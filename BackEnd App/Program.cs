@@ -14,12 +14,13 @@ namespace BackEnd_App
             builder.Services.AddSwaggerGen();
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AlowAll", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+                options.AddPolicy("AlowAll", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             });
             var app = builder.Build();
 
 
             app.UseSwagger();
+            app.MapSwagger().AllowAnonymous().RequireCors("AllowAll");
 
             //Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -28,7 +29,6 @@ namespace BackEnd_App
             }
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
