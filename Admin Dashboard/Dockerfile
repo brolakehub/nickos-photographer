@@ -7,10 +7,11 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Admin Dashboard/Admin Dashboard.csproj", "Admin Dashboard/"]
+COPY ["Admin Dashboard.csproj", "Admin Dashboard/"]
 RUN dotnet restore "./Admin Dashboard/Admin Dashboard.csproj"
-COPY . .
+
 WORKDIR "/src/Admin Dashboard"
+COPY . .
 RUN dotnet build "./Admin Dashboard.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
