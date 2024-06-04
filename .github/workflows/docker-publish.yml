@@ -63,7 +63,6 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/nickos-photographer-frontendapp
           tags: |
-            latest
             main
 
       # Build and push Docker image with Buildx (don't push on PR)
