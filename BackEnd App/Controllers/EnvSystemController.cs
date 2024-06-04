@@ -9,8 +9,6 @@ namespace BackEnd_App.Controllers
         [HttpGet]
         public string Index()
         {
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
-            Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT");
             return Environment.GetEnvironmentVariable("testENV");
         }
     }
