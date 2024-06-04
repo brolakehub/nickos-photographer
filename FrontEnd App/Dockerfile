@@ -9,8 +9,9 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["FrontEnd App.csproj", "FrontEnd App/"]
 RUN dotnet restore "./FrontEnd App/FrontEnd App.csproj"
-COPY . .
+
 WORKDIR "/src/FrontEnd App"
+COPY . .
 RUN dotnet build "./FrontEnd App.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
