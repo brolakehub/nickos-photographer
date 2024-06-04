@@ -14,7 +14,7 @@ namespace BackEnd_App
             builder.Services.AddSwaggerGen();
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AlowAll", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+                options.AddPolicy("AlowAll", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
             var app = builder.Build();
 
