@@ -7,7 +7,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["FrontEnd App/FrontEnd App.csproj", "FrontEnd App/"]
+COPY ["FrontEnd App.csproj", "FrontEnd App/"]
 RUN dotnet restore "./FrontEnd App/FrontEnd App.csproj"
 COPY . .
 WORKDIR "/src/FrontEnd App"
