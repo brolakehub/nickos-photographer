@@ -29,6 +29,7 @@ namespace BackEnd_App
             }
 
             app.UseAuthorization();
+            app.UseCors("AllowAll");
 
             app.MapControllers();
 
