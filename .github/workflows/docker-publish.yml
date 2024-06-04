@@ -71,7 +71,8 @@ jobs:
         with:
           context: './FrontEnd App'
           push: ${{ github.event_name != 'pull_request' }}
-          tags: brolakehub/nickos-photographer-frontend:${GITHUB_REF#refs/heads/}
+          title: nickos-photographer-frontendapp
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
