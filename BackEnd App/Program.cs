@@ -18,7 +18,7 @@ namespace BackEnd_App
 
             builder.Services.AddDbContext<DatabaseContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                option.UseSqlServer($"Server={Environment.GetEnvironmentVariable("dbHost")},{Environment.GetEnvironmentVariable("dbPort")};Database={Environment.GetEnvironmentVariable("dbName")};User Id={Environment.GetEnvironmentVariable("dbUser")};Password={Environment.GetEnvironmentVariable("dbPassword")};");
             });
 
             builder.Services.AddCors(options =>
@@ -46,6 +46,25 @@ namespace BackEnd_App
                 var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
                 db.Database.Migrate();
             }
+
+
+            //string connectionString = "Server=nickosDb,1433;Database=YourDatabaseName;User Id=YourUsername;Password=YourPassword;";
+
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+            //    try
+            //    {
+            //        connection.Open();
+            //        Console.WriteLine("Connected to the database.");
+            //        // Perform database operations here...
+
+            //        connection.Close();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine("Error: " + ex.Message);
+            //    }
+            //}
 
             app.Run();
         }
