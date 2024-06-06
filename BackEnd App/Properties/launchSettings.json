@@ -24,11 +24,11 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "environmentVariables": {
         "ASPNETCORE_URLS": "http://+:80",
-        "dbHost": "192.168.100.46",
-        "dbName": "nickosDb",
-        "dbPassword": "<YourStrong@Passw0rd>",
-        "dbPort": "1433",
-        "dbUser": "SA"
+        "dbHost": "localhost",
+        "dbName": "dbName",
+        "dbPassword": "password",
+        "dbPort": "0000",
+        "dbUser": "user"
       },
       "publishAllPorts": true
     }
