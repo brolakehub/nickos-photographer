@@ -65,14 +65,19 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/backend_app
 
+      - name: Copy DTO projeect
+        id: copy-dto-project
+        run: |
+          mkdir './BackEnd Project/DTO'
+          cp -R ./DTO './BackEnd Project/DTO'
+
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
         with:
-          context: '.'
-          file: './BackEnd App/Dockerfile'
+          context: './BackEnd App'
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
