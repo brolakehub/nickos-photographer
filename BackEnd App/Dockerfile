@@ -8,10 +8,9 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["BackEnd App.csproj", "BackEnd App/"]
-RUN dotnet restore "./BackEnd App/BackEnd App.csproj"
 COPY ./DTO .
-RUN ls
-RUN ls ./DTO
+RUN dotnet restore "./BackEnd App/BackEnd App.csproj"
+
 WORKDIR "/src/BackEnd App"
 COPY . .
 RUN dotnet build "./BackEnd App.csproj" -c $BUILD_CONFIGURATION -o /app/build
