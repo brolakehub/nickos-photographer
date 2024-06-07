@@ -105,15 +105,15 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-      steps:
-        - uses: sekassel-research/actions-rancher-update@v1
-          with:
-            rancher_url: https://panel.brolake.com
-            rancher_access: ${{ secrets.CATTLE_ACCESS_KEY }}
-            rancher_key: ${{ secrets.CATTLE_SECRET_KEY }}
-            project_id: 1a5
-            stack_name: Nickos-Photographer
-            service_name: Backend
-            docker_image: ghcr.io/brolakehub/nickos-photographer/backend_app:main
-            retry_count: 10 # optional
-            retry_delay: 5 # optional
+    steps:
+      - uses: sekassel-research/actions-rancher-update@v1
+        with:
+          rancher_url: https://panel.brolake.com
+          rancher_access: ${{ secrets.CATTLE_ACCESS_KEY }}
+          rancher_key: ${{ secrets.CATTLE_SECRET_KEY }}
+          project_id: 1a5
+          stack_name: Nickos-Photographer
+          service_name: Backend
+          docker_image: ghcr.io/brolakehub/nickos-photographer/backend_app:main
+          retry_count: 10 # optional
+          retry_delay: 5 # optional
