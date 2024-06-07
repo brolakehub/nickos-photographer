@@ -65,11 +65,13 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/backend_app
 
-      - name: Copy DTO projeect
-        id: copy-dto-project
-        run: |
-          mkdir './BackEnd App/DTO'
-          cp -R ./DTO/* './BackEnd App/DTO/'
+      - name: Create directory DTO project
+        id: create-directory-dto-project
+        run: mkdir './BackEnd App/DTO'
+
+      - name: Copy DTO project to directory
+        id: copy-project-to-directory
+        run: cp --verbose -R ./DTO/* './BackEnd App/DTO/'
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
