@@ -8,7 +8,7 @@ name: Docker FrontEnd App
 on:
   push:
     branches: [ "main" ]
-    paths: [ 'FrontEnd App/**' ]
+    paths: [ 'FrontEnd App/**', 'DTO/**', '.github/workflows/docker-publish-frontend.yml' ]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -91,3 +91,19 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: sekassel-research/actions-rancher-update@v1
+        with:
+          rancher_url: https://panel.brolake.com
+          rancher_access: ${{ secrets.CATTLE_ACCESS_KEY }}
+          rancher_key: ${{ secrets.CATTLE_SECRET_KEY }}
+          project_id: 1a5
+          stack_name: Nickos-Photographer
+          service_name: FrontEnd
+          docker_image: ghcr.io/brolakehub/nickos-photographer/frontend-app:main
+          retry_count: 10 # optional
+          retry_delay: 5 # optional
