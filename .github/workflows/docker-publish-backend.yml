@@ -101,3 +101,24 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+    
+    steps:
+      - name: Call for upgrade to Rancher
+        id: upgrade-service-rancher
+        run: |
+          curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
+          -X POST \
+          -H 'Accept: application/json' \
+          -H 'Content-Type: application/json' \
+          -d '{"inServiceStrategy":null, "toServiceStrategy":null}' \
+          'https://panel.brolake.com/v2-beta/projects/1a5/services/1s37/?action=upgrade'
