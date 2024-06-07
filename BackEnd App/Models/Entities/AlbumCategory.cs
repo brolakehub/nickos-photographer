@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackEnd_App.Models.Entities
 {
-    [Table("albumCategorys", Schema = "filter")]
+    [Table("albumCategories", Schema = "filter")]
     public class AlbumCategory
     {
         [Key]
