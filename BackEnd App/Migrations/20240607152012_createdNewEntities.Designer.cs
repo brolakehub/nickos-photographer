@@ -3,6 +3,7 @@ using BackEnd_App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEnd_App.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240607152012_createdNewEntities")]
+    partial class createdNewEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,7 +69,7 @@ namespace BackEnd_App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("albumCategories", "filter");
+                    b.ToTable("albumCategorys", "filter");
                 });
 
             modelBuilder.Entity("BackEnd_App.Models.Entities.ContactRequest", b =>

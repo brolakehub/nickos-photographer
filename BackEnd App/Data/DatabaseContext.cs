@@ -5,7 +5,12 @@ namespace BackEnd_App.Data
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<TestEntity> TestEntities { get; set; }
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<AlbumCategory> AlbumCategories { get; set; }
+        public DbSet<ContactRequest> ContactRequests { get; set; }
+        public DbSet<Models.Entities.File> Files { get; set; }
+        public DbSet<Info> Infos { get; set; }
+        public DbSet<Service> Services { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
@@ -13,7 +18,12 @@ namespace BackEnd_App.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TestEntity>().ToTable("TestEntity");
+            modelBuilder.Entity<Album>();
+            modelBuilder.Entity<AlbumCategory>();
+            modelBuilder.Entity<ContactRequest>();
+            modelBuilder.Entity<Models.Entities.File>();
+            modelBuilder.Entity<Info>();
+            modelBuilder.Entity<Service>();
         }
     }
 }
