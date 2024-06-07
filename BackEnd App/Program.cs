@@ -47,25 +47,6 @@ namespace BackEnd_App
                 db.Database.Migrate();
             }
 
-
-            //string connectionString = "Server=nickosDb,1433;Database=YourDatabaseName;User Id=YourUsername;Password=YourPassword;";
-
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    try
-            //    {
-            //        connection.Open();
-            //        Console.WriteLine("Connected to the database.");
-            //        // Perform database operations here...
-
-            //        connection.Close();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine("Error: " + ex.Message);
-            //    }
-            //}
-
             app.Run();
         }
     }
