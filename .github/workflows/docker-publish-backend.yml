@@ -68,8 +68,8 @@ jobs:
       - name: Copy DTO projeect
         id: copy-dto-project
         run: |
-          mkdir './BackEnd Project/DTO'
-          cp -R ./DTO './BackEnd Project/DTO'
+          mkdir './BackEnd App/DTO'
+          cp -R ./DTO './BackEnd App/DTO'
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
