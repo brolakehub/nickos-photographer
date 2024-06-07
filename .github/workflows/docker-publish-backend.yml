@@ -8,6 +8,7 @@ name: Docker Backend App
 on:
   push:
     branches: [ "main" ]
+    paths: [ 'BackEnd App/**', 'DTO/**' ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
 

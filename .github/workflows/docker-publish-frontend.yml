@@ -8,6 +8,7 @@ name: Docker FrontEnd App
 on:
   push:
     branches: [ "main" ]
+    paths: [ 'FrontEnd App/**' ]
 
 env:
   # Use docker.io for Docker Hub if empty
