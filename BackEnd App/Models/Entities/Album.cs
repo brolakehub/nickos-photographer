@@ -13,6 +13,17 @@ namespace BackEnd_App.Models.Entities
         [Column(TypeName = "nvarchar(MAX)")]
         public string Name { get; set; }
 
-        public ICollection<AlbumCategory> Categories { get; set; }
+        public ICollection<AlbumCategory> Categories { get; set; } = new List<AlbumCategory>();
+
+        public ICollection<File> Files { get; set; } = new List<File>();
+
+        public DTO.Album ToDTOAlbum() =>
+            new()
+            {
+                Id = Id,
+                Name = Name,
+                Categories = Categories.ToList().Select(c => c.ToDTOAlbumCategory()).ToList(),
+                Files = Files.ToList().Select(f => f.ToDTOFile()).ToList(),
+            };
     }
 }

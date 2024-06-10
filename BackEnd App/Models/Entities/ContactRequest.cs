@@ -24,5 +24,26 @@ namespace BackEnd_App.Models.Entities
 
         [Column(TypeName = "nvarchar(MAX)")]
         public string Message { get; set; }
+
+        public DTO.ContactRequest ToDTOContactRequest() =>
+            new()
+            {
+                Name = Name,
+                Email = Email,
+                Phone = Phone,
+                Subject = Subject,
+                Message = Message,
+            };
+
+        public ContactRequest FromDTOContactRequest(DTO.ContactRequest contactRequest)
+        {
+            Name = contactRequest.Name;
+            Email = contactRequest.Email;
+            Phone = contactRequest.Phone;
+            Subject = contactRequest.Subject;
+            Message = contactRequest.Message;
+
+            return this;
+        }
     }
 }
