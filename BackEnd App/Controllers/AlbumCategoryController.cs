@@ -32,13 +32,20 @@ namespace BackEnd_App.Controllers
         [Route("[action]")]
         public async Task<AlbumCategoryDTO?> GetCategory(int categoryId) =>
             (
-                await _categoryContext.FirstOrDefaultAsync(c => c.Id == categoryId)
+                await _categoryContext
+                    .Include(c => c.Albums)
+                    .FirstOrDefaultAsync(c => c.Id == categoryId)
             )?.ToDTOAlbumCategory();
 
         [HttpGet]
         [Route("[action]")]
         public async Task<List<AlbumCategoryDTO>> GetAllGategories(int number, int size) =>
-            (await Utils.GetMultipleElementsByValue(_categoryContext, number, size))
+            (
+                await Utils
+                    .GetMultipleElementsByValue(_categoryContext, number, size)
+                    .Include(c => c.Albums)
+                    .ToListAsync()
+            )
                 .Select(c => c.ToDTOAlbumCategory())
                 .ToList();
 

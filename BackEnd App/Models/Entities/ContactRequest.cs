@@ -28,6 +28,7 @@ namespace BackEnd_App.Models.Entities
         public DTO.ContactRequest ToDTOContactRequest() =>
             new()
             {
+                Id = Id,
                 Name = Name,
                 Email = Email,
                 Phone = Phone,

@@ -18,13 +18,13 @@ namespace BackEnd_App.Models.Entities
 
         public File? File { get; set; }
 
-        public DTO.Service ToDTOService() =>
+        public DTO.Service ToDTOService(bool isRecursive = false) =>
             new()
             {
                 Id = Id,
                 Title = Title,
                 Description = Description,
-                File = File?.ToDTOFile()
+                File = isRecursive ? null : File?.ToDTOFile(true)
             };
 
         public Service FromDTOService(DTO.Service service)

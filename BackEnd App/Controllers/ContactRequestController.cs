@@ -23,7 +23,11 @@ namespace BackEnd_App.Controllers
         [HttpGet]
         [Route("[action]")]
         public async Task<List<ContactRequestDTO>> GetAllRequests(int number, int size) =>
-            (await Utils.GetMultipleElementsByValue(_contactRequestsContext, number, size))
+            (
+                await Utils
+                    .GetMultipleElementsByValue(_contactRequestsContext, number, size)
+                    .ToListAsync()
+            )
                 .Select(cr => cr.ToDTOContactRequest())
                 .ToList();
 

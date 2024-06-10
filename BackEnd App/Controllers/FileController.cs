@@ -123,19 +123,23 @@ namespace BackEnd_App.Controllers
             int number,
             int size,
             FileType? fileType = null
-        )
-        {
-            Console.WriteLine(await Utils.GetMultipleElementsByValue(_filesContext, number, size));
-
-            return (
+        ) =>
+            (
                 fileType != null
-                    ? (await Utils.GetMultipleElementsByValue(_filesContext, number, size)).Where(
-                        f => f.Type == fileType
+                    ? (
+                        await Utils
+                            .GetMultipleElementsByValue(_filesContext, number, size)
+                            .Include(f => f.Albums)
+                            .ToListAsync()
+                    ).Where(f => f.Type == fileType)
+                    : (
+                        await Utils
+                            .GetMultipleElementsByValue(_filesContext, number, size)
+                            .Include(f => f.Albums)
+                            .ToListAsync()
                     )
-                    : (await Utils.GetMultipleElementsByValue(_filesContext, number, size))
             )
                 .Select(f => f.ToDTOFile())
                 .ToList();
-        }
     }
 }

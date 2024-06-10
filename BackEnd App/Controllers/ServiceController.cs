@@ -36,7 +36,7 @@ namespace BackEnd_App.Controllers
         [HttpGet]
         [Route("[action]")]
         public async Task<List<ServiceDTO>> GetAllServices(int number, int size) =>
-            (await Utils.GetMultipleElementsByValue(_servicesContext, number, size))
+            (await Utils.GetMultipleElementsByValue(_servicesContext, number, size).ToListAsync())
                 .Select(s => s.ToDTOService())
                 .ToList();
 

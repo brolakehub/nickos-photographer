@@ -17,13 +17,15 @@ namespace BackEnd_App.Models.Entities
 
         public ICollection<File> Files { get; set; } = new List<File>();
 
-        public DTO.Album ToDTOAlbum() =>
+        public DTO.Album ToDTOAlbum(bool isRecursive = false) =>
             new()
             {
                 Id = Id,
                 Name = Name,
-                Categories = Categories.ToList().Select(c => c.ToDTOAlbumCategory()).ToList(),
-                Files = Files.ToList().Select(f => f.ToDTOFile()).ToList(),
+                Categories = isRecursive
+                    ? new List<DTO.AlbumCategory>()
+                    : Categories.ToList().Select(c => c.ToDTOAlbumCategory(true)).ToList(),
+                Files = Files.ToList().Select(f => f.ToDTOFile(true)).ToList(),
             };
     }
 }

@@ -15,12 +15,14 @@ namespace BackEnd_App.Models.Entities
 
         public ICollection<Album> Albums { get; set; } = new List<Album>();
 
-        public DTO.AlbumCategory ToDTOAlbumCategory() =>
+        public DTO.AlbumCategory ToDTOAlbumCategory(bool isRecursive = false) =>
             new()
             {
                 Id = Id,
                 Name = Name,
-                Albums = Albums.ToList().Select(f => f.ToDTOAlbum()).ToList(),
+                Albums = isRecursive
+                    ? new List<DTO.Album>()
+                    : Albums.ToList().Select(f => f.ToDTOAlbum(true)).ToList(),
             };
     }
 }

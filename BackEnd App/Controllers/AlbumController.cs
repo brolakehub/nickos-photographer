@@ -34,12 +34,23 @@ namespace BackEnd_App.Controllers
         [HttpGet]
         [Route("[action]")]
         public async Task<AlbumDTO?> GetAlbum(int albumId) =>
-            (await _albumContext.FirstOrDefaultAsync(a => a.Id == albumId))?.ToDTOAlbum();
+            (
+                await _albumContext
+                    .Include(a => a.Categories)
+                    .Include(a => a.Files)
+                    .FirstOrDefaultAsync(a => a.Id == albumId)
+            )?.ToDTOAlbum();
 
         [HttpGet]
         [Route("[action]")]
         public async Task<List<AlbumDTO>> GetAllAlbums(int number, int size) =>
-            (await Utils.GetMultipleElementsByValue(_albumContext, number, size))
+            (
+                await Utils
+                    .GetMultipleElementsByValue(_albumContext, number, size)
+                    .Include(a => a.Categories)
+                    .Include(a => a.Files)
+                    .ToListAsync()
+            )
                 .Select(a => a.ToDTOAlbum())
                 .ToList();
 
@@ -91,9 +102,16 @@ namespace BackEnd_App.Controllers
         [NonAction]
         private async Task UpdateAlbumCategory(int albumId, int categoryId, bool isAdding)
         {
-            var album = await _albumContext.FirstOrDefaultAsync(a => a.Id == albumId);
-            var category = await _categoryContext.FirstOrDefaultAsync(a => a.Id == categoryId);
+            var album = await _albumContext
+                .Include(a => a.Categories)
+                .FirstOrDefaultAsync(a => a.Id == albumId);
+            var category = await _categoryContext.FirstOrDefaultAsync(c => c.Id == categoryId);
+
             if (album == null || category == null)
+                return;
+
+            var containCategory = album.Categories.Contains(category);
+            if ((isAdding && containCategory) || (!isAdding && !containCategory))
                 return;
 
             if (isAdding)
@@ -108,9 +126,15 @@ namespace BackEnd_App.Controllers
         [NonAction]
         private async Task UpdateAlbumFile(int albumId, int fileId, bool isAdding)
         {
-            var album = await _albumContext.FirstOrDefaultAsync(a => a.Id == albumId);
-            var file = await _databaseContext.Files.FirstOrDefaultAsync(a => a.Id == fileId);
+            var album = await _albumContext
+                .Include(a => a.Files)
+                .FirstOrDefaultAsync(a => a.Id == albumId);
+            var file = await _databaseContext.Files.FirstOrDefaultAsync(f => f.Id == fileId);
             if (album == null || file == null)
+                return;
+
+            var containFile = album.Files.Contains(file);
+            if ((isAdding && containFile) || (!isAdding && !containFile))
                 return;
 
             if (isAdding)

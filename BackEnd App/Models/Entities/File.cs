@@ -21,13 +21,15 @@ namespace BackEnd_App.Models.Entities
 
         public ICollection<Album> Albums { get; set; } = new List<Album>();
 
-        public DTO.File ToDTOFile() =>
+        public DTO.File ToDTOFile(bool isRecursive = false) =>
             new()
             {
                 Id = Id,
                 Name = Name,
                 Path = Path,
-                Albums = Albums.ToList().Select(a => a.ToDTOAlbum()).ToList(),
+                Albums = isRecursive
+                    ? new List<DTO.Album>()
+                    : Albums.ToList().Select(a => a.ToDTOAlbum(true)).ToList(),
                 Type = Type
             };
 
