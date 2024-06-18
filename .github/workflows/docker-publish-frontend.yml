@@ -105,5 +105,5 @@ jobs:
           stack_name: Nickos-Photographer
           service_name: FrontEnd
           docker_image: ghcr.io/brolakehub/nickos-photographer/frontend-app:main
-          retry_count: 10 # optional
+          retry_count: 20 # optional
           retry_delay: 5 # optional
