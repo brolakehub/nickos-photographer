@@ -18,15 +18,19 @@ namespace BackEnd_App
 
             builder.Services.AddDbContext<DatabaseContext>(option =>
             {
-                option.UseSqlServer($"Server={Environment.GetEnvironmentVariable("dbHost")},{Environment.GetEnvironmentVariable("dbPort")};Database={Environment.GetEnvironmentVariable("dbName")};User Id={Environment.GetEnvironmentVariable("dbUser")};Password={Environment.GetEnvironmentVariable("dbPassword")};");
+                option.UseSqlServer(
+                    $"Server={Environment.GetEnvironmentVariable("dbHost")},{Environment.GetEnvironmentVariable("dbPort")};Database={Environment.GetEnvironmentVariable("dbName")};User Id={Environment.GetEnvironmentVariable("dbUser")};Password={Environment.GetEnvironmentVariable("dbPassword")};"
+                );
             });
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AlowAll", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+                options.AddPolicy(
+                    "AlowAll",
+                    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+                );
             });
             var app = builder.Build();
-
 
             app.UseSwagger();
             app.MapSwagger().AllowAnonymous().RequireCors("AllowAll");

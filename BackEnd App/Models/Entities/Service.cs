@@ -16,7 +16,24 @@ namespace BackEnd_App.Models.Entities
         [Column(TypeName = "nvarchar(MAX)")]
         public string Description { get; set; }
 
-        [Column(TypeName = "nvarchar(MAX)")]
-        public string Field { get; set; }
+        public File? File { get; set; }
+
+        public DTO.Service ToDTOService(bool isRecursive = false) =>
+            new()
+            {
+                Id = Id,
+                Title = Title,
+                Description = Description,
+                File = isRecursive ? null : File?.ToDTOFile(true)
+            };
+
+        public Service FromDTOService(DTO.Service service)
+        {
+            Title = service.Title;
+            Description = service.Description;
+            if (service.File != null)
+                File = File?.FromDTOFile(service.File);
+            return this;
+        }
     }
 }

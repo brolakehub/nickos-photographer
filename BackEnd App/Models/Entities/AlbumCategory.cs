@@ -13,6 +13,16 @@ namespace BackEnd_App.Models.Entities
         [Column(TypeName = "nvarchar(MAX)")]
         public string Name { get; set; }
 
-        public ICollection<Album> Albums { get; set; }
+        public ICollection<Album> Albums { get; set; } = new List<Album>();
+
+        public DTO.AlbumCategory ToDTOAlbumCategory(bool isRecursive = false) =>
+            new()
+            {
+                Id = Id,
+                Name = Name,
+                Albums = isRecursive
+                    ? new List<DTO.Album>()
+                    : Albums.ToList().Select(f => f.ToDTOAlbum(true)).ToList(),
+            };
     }
 }
